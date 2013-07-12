@@ -3,17 +3,18 @@
 # =============================================
 
 # ソースコードの取得
-(ping-t)$ git clone gcal-sync-with-ping-t
+(ping-t)$ git clone https://github.com/yatt/gcal-sync-with-ping-t.git
+(ping-t)$ cd gcal-sync-with-ping-t.git
 # アカウント情報マスタファイルの作成
 (ping-t)$ sh
 (ping-t)$ umask 066
-(ping-t)$ cat > gcal-sync-with-ping-t/master/ping-t # Ping-tのアカウント情報
+(ping-t)$ cat > master/ping-t # Ping-tのアカウント情報
 user-id password
 ^D
-(ping-t)$ cat > gcal-sync-with-ping-t/master/google # Googleのアカウント情報
+(ping-t)$ cat > master/google # Googleのアカウント情報
 user@example.com password
 ^D
-(ping-t)$ cat > gcal-sync-with-ping-t/master/calendar-id # Google CalendarのカレンダーID情報
+(ping-t)$ cat > master/calendar-id # Google CalendarのカレンダーID情報
 hogeafa8asdIjhaliZLf@group.calendar.google.com
 ^D
 (ping-t)$ exit
@@ -50,7 +51,17 @@ usage: app.sh [-o] kbn
 22,3,2012/12/28 11:30,分野別,255,190,62,38,0
 22,4,2012/12/29 03:04,分野別,60,51,53,47,0
 ...
+
 # 3. ファイルへの保存とカレンダーへの同期
 (ping-t)$ ./app.sh 22
+
+# 4. 出力内容の確認
 (ping-t)$ ls archive/
 22_20130712_010601.csv
+(ping-t)$ cat archive/22_20130712_010601.csv
+22,1,2012/12/28 01:03,分野別,10,12,98,2,0
+22,2,2012/12/28 10:12,分野別,20,18,95,5,0
+22,3,2012/12/28 11:30,分野別,255,190,62,38,0
+22,4,2012/12/29 03:04,分野別,60,51,53,47,0
+...
+
