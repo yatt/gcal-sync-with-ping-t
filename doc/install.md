@@ -1,0 +1,56 @@
+# =============================================
+# インストール
+# =============================================
+
+# ソースコードの取得
+(ping-t)$ git clone gcal-sync-with-ping-t
+# アカウント情報マスタファイルの作成
+(ping-t)$ sh
+(ping-t)$ umask 066
+(ping-t)$ cat > gcal-sync-with-ping-t/master/ping-t # Ping-tのアカウント情報
+user-id password
+^D
+(ping-t)$ cat > gcal-sync-with-ping-t/master/google # Googleのアカウント情報
+user@example.com password
+^D
+(ping-t)$ cat > gcal-sync-with-ping-t/master/calendar-id # Google CalendarのカレンダーID情報
+hogeafa8asdIjhaliZLf@group.calendar.google.com
+^D
+(ping-t)$ exit
+
+
+# =============================================
+# 動作確認
+# =============================================
+
+# 1. help
+(ping-t)$ ./app.sh -h
+usage: app.sh [-o] kbn
+
+        kbn     name
+     ----------------------
+        8       CCNA
+        25      CCNA-Security
+        35      CCNA-Wireless
+        38      CCNA-Voice
+        20      CCNP-SWITCH
+        29      CCNP-ROUTE
+        27      CCNP-TSHOOT
+        22      LPIC-101
+        40      LPIC-102
+        41      LPIC-201
+        33      LPIC-202
+        37      LPIC-301
+
+# 2. 標準出力へのCSV出力のみ
+# LPIC-101の履歴出力
+(ping-t)$ ./app.sh -o 22
+22,1,2012/12/28 01:03,分野別,10,12,98,2,0
+22,2,2012/12/28 10:12,分野別,20,18,95,5,0
+22,3,2012/12/28 11:30,分野別,255,190,62,38,0
+22,4,2012/12/29 03:04,分野別,60,51,53,47,0
+...
+# 3. ファイルへの保存とカレンダーへの同期
+(ping-t)$ ./app.sh 22
+(ping-t)$ ls archive/
+22_20130712_010601.csv
