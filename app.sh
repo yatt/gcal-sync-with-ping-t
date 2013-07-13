@@ -32,7 +32,7 @@ do
         shift `expr $OPTIND - 1`
         ;;
     "h" )
-        echo "usage: $0 [-o] kbn"
+        echo "usage: $(basename $0) [-o] kbn"
         echo ""
         # 区分の出力
         echo "\tkbn\tname"
@@ -44,7 +44,7 @@ done
 
 # 区分が与えられなければ終了
 if [ $# -lt 1 ]; then
-  echo "usage: ./app.sh [-o] kbn"
+  echo "usage: $(basename $0) [-o] kbn"
   exit 1
 fi
 
