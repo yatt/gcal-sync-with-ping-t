@@ -14,6 +14,7 @@ def normalize_timestamp(text):
 
 def datafilter(content, kbn):
     # filter history data from html doc
+    content = content.encode('utf-8')
     soup = BeautifulSoup.BeautifulSoup(content)
     hist = soup.find('table', {'id': 'tablerireki'})
     hent = hist.findAll('tr', {'class': 'list_table'})
@@ -34,15 +35,15 @@ def datafilter(content, kbn):
         #    , 'kbn': kbn
         #})
         lst.append([
-            kbn
-            , int(rec[1].text)
+            str(kbn)
+            , rec[1].text
             , normalize_timestamp(rec[2].text)
             , rec[3].text
-            , int(rec[5].text)
-            , int(rec[6].text)
-            , int(rec[7].text[:-1])
-            , int(rec[8].text[:-1])
-            , int(rec[9].text[:-1])
+            , rec[5].text
+            , rec[6].text
+            , rec[7].text[:-1]
+            , rec[8].text[:-1]
+            , rec[9].text[:-1]
         ])
     return lst
 
@@ -79,7 +80,9 @@ def fetch_raw(uid, pwd, kbn):
     # goto history
     res = b.open('http://ping-t.com/mondai3/study_histories/index_noflash')
 
-    return res.read()
+    res = res.read()
+    res = res.decode('utf-8')
+    return res
 
 def fetch(uid, pwd, kbn):
     content = fetch_raw(uid, pwd, kbn)
@@ -95,7 +98,7 @@ def main():
     uid,pwd,kbn = sys.argv[1:]
     kbn = int(kbn)
     for e in fetch(uid, pwd, kbn):
-        print ','.join(map(str, e))
+        print ','.join(e)
 
 
 if __name__ == '__main__':
