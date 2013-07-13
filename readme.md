@@ -38,20 +38,21 @@ app.sh をping-t内で使われている資格区分を引数にして実行し�
 $ ./app.sh -h
 usage: app.sh [-o] kbn
 
-        kbn     name
+	kbn	name
      ----------------------
-        8       CCNA
-        25      CCNA-Security
-        35      CCNA-Wireless
-        38      CCNA-Voice
-        20      CCNP-SWITCH
-        29      CCNP-ROUTE
-        27      CCNP-TSHOOT
-        22      LPIC-101
-        40      LPIC-102
-        41      LPIC-201
-        33      LPIC-202
-        37      LPIC-301
+	8	CCNA
+	25	CCNA-Security
+	35	CCNA-Wireless
+	38	CCNA-Voice
+	20	CCNP-SWITCH
+	29	CCNP-ROUTE
+	27	CCNP-TSHOOT
+	22	LPIC-101
+	40	LPIC-102
+	41	LPIC-201
+	33	LPIC-202
+	37	LPIC-301
+	21	Oracle Master Bronze
 
 # LPIC-101 の学習履歴を標準出力に書き出す
 $ ./app.sh -o 22
