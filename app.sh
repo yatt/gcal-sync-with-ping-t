@@ -38,6 +38,7 @@ do
         echo "\tkbn\tname"
         echo "     ----------------------"
         cat $ROOT/master/kbn.csv | cut -f1,2 -d, | sed -e 's/,/\t/g' -e 's/^/\t/g'
+        echo ""
         exit 1
   esac
 done
