@@ -2,8 +2,9 @@
 # coding: utf-8
 import os
 import sys
-from lib import mechanize, BeautifulSoup
+import csv
 import datetime
+from lib import mechanize, BeautifulSoup
 
 def normalize_timestamp(text):
     # format as yyyy/mm/dd hh:mi
@@ -47,6 +48,16 @@ def datafilter(content, kbn):
         ])
     return lst
 
+def read_kbn_master():
+    # 区分マスタの読み込み
+    mst_path = os.path.join(os.path.dirname(__file__), '..', 'master', 'kbn.csv')
+    urld = dict((int(row[0]), int(row[2])) for row in csv.reader(open(mst_path)))
+    # 課金区分によってURL設定
+    ub = [None, 'mondai', 'PremiumContents']
+    for kbn in urld:
+        urld[kbn] = 'http://ping-t.com/modules/%s/index.php?content_id=%d' % (ub[urld[kbn]], kbn)
+    return urld
+ 
 def fetch_raw(uid, pwd, kbn):
     #return open('out.html').read()
     # fetch history data as raw data (html content) using mechanize
@@ -59,18 +70,8 @@ def fetch_raw(uid, pwd, kbn):
     b['uname'] = uid
     b['pass'] = pwd
     res = b.submit()
-
-    url = {
-        # ccna
-        8: 'http://ping-t.com/modules/mondai/index.php?content_id=8',
-        # ccnp
-        # lpic 101
-        22: 'http://ping-t.com/modules/mondai/index.php?content_id=22',
-        # lpic 102
-        40: 'http://ping-t.com/modules/PremiumContents/index.php?content_id=40',
-        # lpic 201
-        # lpic 202
-    }[kbn]
+   
+    url = read_kbn_master()[kbn]
     b.open(url)
 
     # goto kbn top page
