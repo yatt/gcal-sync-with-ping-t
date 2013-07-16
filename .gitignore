@@ -5,3 +5,4 @@ master/google
 master/calendar_id
 master/registered.csv
 *.pyc
+browser_extension/gcal-sync-with-ping-t-kick.user.js
