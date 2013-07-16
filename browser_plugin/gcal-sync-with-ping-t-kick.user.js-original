@@ -1,0 +1,37 @@
+// ==UserScript==
+// @name           gcal sync with ping-t kick it
+// @match          http://ping-t.com/mondai3/kakumon_histories/index
+// ==/UserScript==
+
+(function(){
+    // バージョンを2.0.3にしても動作するかは確認
+    (function withjq(callback) {
+      var script = document.createElement("script");
+      script.setAttribute("src", "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js");
+      script.addEventListener('load', function() {
+        var script = document.createElement("script");
+        script.textContent = "(" + callback.toString() + ")();";
+        document.body.appendChild(script);
+      }, false);
+      document.body.appendChild(script);
+    })(function(){
+
+        // ここ、パラメタライズしたい
+        var url = ''
+        var token = ''
+
+        // サーバにトークンをPOST、トークンで認証して更新バッチを起動する
+        $.post(url
+            , { token: token }
+            , function(jsondoc){
+                if (jsondoc.code == 200) {
+                    console.log('successfully updated');
+                } else {
+                    console.log('[kick]:' + jsondoc.msg)
+                }
+            }
+        )
+
+    })
+
+})();
